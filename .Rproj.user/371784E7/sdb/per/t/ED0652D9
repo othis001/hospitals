@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "## best is a function that take two arguments: the 2-character abbreviated name of a state and an\n## outcome name. The function reads the outcome-of-care-measures.csv file and returns a character vector\n## with the name of the hospital that has the best (i.e. lowest) 30-day mortality for the specified outcome\n## in that state.\n\nbest <- function(state, outcome) {\n    ## Reads outcome data.\n    \n    thedata <- read.csv(\"outcome-of-care-measures.csv\", na.strings=\"Not Available\")\n    \n    ## Checks that state and outcome are valid.\n    \n    thedata <- thedata[ which(thedata$State == state), ]\n    \n    if(nrow(thedata) == 0) stop(\"invalid state\")\n    \n    if(outcome == \"heart failure\") hname = \"Heart.Failure\"\n    else if(outcome == \"heart attack\") hname = \"Heart.Attack\"\n    else if(outcome == \"pneumonia\") hname = \"Pneumonia\"\n    else stop(\"invalid outcome\")\n        \n    hname <- paste(\"Hospital.30.Day.Death..Mortality..Rates.from.\", hname, sep = \"\")\n    \n    ## First we find the minimum death rate.\n    \n    thedata <- thedata[complete.cases(thedata[, hname]), ]\n    thedata[,hname] <- as.numeric(as.character(thedata[,hname]))\n\n    deathrates <- thedata[ , hname]\n    minimum <- min(deathrates)\n    \n    ## Now return the first hospital alphabetically that has it.\n    \n    thedata <- thedata[thedata[, hname] == minimum,]\n    thedata <- thedata[order(thedata$Hospital.Name),]\n    \n    as.character(thedata[1,2])\n}",
+    "created" : 1480958392874.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2086049984",
+    "id" : "ED0652D9",
+    "lastKnownWriteTime" : 1480972338,
+    "last_content_update" : 1480972338930,
+    "path" : "~/R2/week4/best.R",
+    "project_path" : "best.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
