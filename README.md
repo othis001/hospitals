@@ -15,7 +15,7 @@ state (state), an outcome (outcome), and the ranking of a hospital in that state
 The function reads the outcome-of-care-measures.csv file and returns a character vector with the name
 of the hospital that has the ranking specified by the num argument.
 
-## rankall
+## rankall.R
 
 rankall is a function that takes two arguments: an outcome name (outcome) and a hospital ranking (num).
 The function reads the outcome-of-care-measures.csv file and returns a 2-column data frame
